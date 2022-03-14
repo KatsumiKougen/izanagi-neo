@@ -426,7 +426,7 @@ void Canvas::load(){
                         case (char)53: pixel[y][x] = color::Purple;break;
                         case (char)54: pixel[y][x] = color::Cyan;break;
                         case (char)55: pixel[y][x] = color::White;break;
-                        case (char)56: pixel[y][x] = color::Black;break;
+                        case (char)56: pixel[y][x] = color::Black+color::Bright;break;
                         case (char)57: pixel[y][x] = color::Red+color::Bright;break;
                         case (char)97: pixel[y][x] = color::Green+color::Bright;break;
                         case (char)98: pixel[y][x] = color::Yellow+color::Bright;break;
