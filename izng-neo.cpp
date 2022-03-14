@@ -59,7 +59,6 @@ class Canvas {
         unsigned short pixel[max_y][max_x];
         struct {
             unsigned curx = 0, cury = 0, color = 0;
-            bool isBright = false;
         } cursor;
 
         void init_color(){
@@ -275,7 +274,7 @@ class Canvas {
                             std::cin >> outfilename;
 
                             std::ifstream inf{outfilename};
-                            char data[1000];
+                            char data[1250];
                             if (!inf){
                                 std::cerr << "welp that sucks.\nthe program couldn't open the file.";
                                 sleep(2);
@@ -286,7 +285,7 @@ class Canvas {
                                     inf >> data;
                                     for (int y=0;y<max_y;y++){
                                         for (int x=0;x<max_x;x++)
-                                            switch (data[y*max_y+x]){
+                                            switch (data[max_x*y+x]){
                                                 case (char)48: pixel[y][x] = color::Black;break;
                                                 case (char)49: pixel[y][x] = color::Red;break;
                                                 case (char)50: pixel[y][x] = color::Green;break;
