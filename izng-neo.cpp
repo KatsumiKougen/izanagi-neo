@@ -50,7 +50,7 @@ static std::vector<const char*> splash = {
     "Don't lose your kindness. Take care of the weak and help each other.",
     "We're here to combine our powers with the system, and to fight together!",
     "If that setting sun is me, then the sun tomorrow will be you.",
-    "They didn't just love you for being a Linux di, they loved you for being their friend.",
+    "They didn't just love you for being a Linux distro, they loved you for being their friend.",
     "I do not care for much else; all I wish is to protect you!",
     "See the Explosive Power of the Ultimate Hot Battle!",
     "I need to be like you! I need your power!",
