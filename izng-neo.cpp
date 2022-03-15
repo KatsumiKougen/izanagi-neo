@@ -16,7 +16,6 @@ namespace color {
 static std::vector<const char*> splash = {
     "You're 20000 milliseconds too early to catch me!",
     "Until the dying day!!!",
-    "I ask that you chant my name!",
     "You're already a star, Marina. We're an unstoppable duo!",
     "Tachibana-san! Have you really betrayed us?",
     "Once you take hold of me, what will you do?",
@@ -45,7 +44,24 @@ static std::vector<const char*> splash = {
     "There's only one optimised code! And that's me!", // Zero-One
     "I will decide this program's ending!", // Saber
     "Keep on searching... Dealing with the format!", // Revice
-    "I was born to fight those who break system laws, like you.", // Ultraman
+    "I was born to fight those who break system laws, like you.",
+    "Look for that moving file, because that will be me.",
+    "To love distros, you must know them.",
+    "Don't lose your kindness. Take care of the weak and help each other.",
+    "We're here to combine our powers with the system, and to fight together!",
+    "If that setting sun is me, then the sun tomorrow will be you.",
+    "They didn't just love you for being Linux system, they loved you for being their friend.",
+    "I do not care for much else; all I wish is to protect you!",
+    "See the Explosive Power of the Ultimate Hot Battle!",
+    "I need to be like you! I need your power!",
+    "The light is a bond. Someone will inherit it, and it will shine again.",
+    "He is the ultimate... Max!",
+    "I am Zero! M78-OS Version Zero! Son of Version Seven!",
+    "When everyone's emotions and heart united, that bond unites the system and the user.",
+    "I light the darkness and strike at evil!",
+    "Sitting around doing nothing won't get us anywhere!",
+    "I ask that you chant my name!",
+    "Smile, smile!"
 };
 
 class Canvas
