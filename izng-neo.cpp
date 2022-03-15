@@ -44,7 +44,8 @@ static std::vector<const char*> splash = {
     "I will be the greatest, kindest daemon thread!", // Zi-O
     "There's only one optimised code! And that's me!", // Zero-One
     "I will decide this program's ending!", // Saber
-    "Keep on searching... Dealing with the format!" // Revice
+    "Keep on searching... Dealing with the format!", // Revice
+    "I was born to fight those who break system laws, like you.", // Ultraman
 };
 
 class Canvas
@@ -61,8 +62,8 @@ class Canvas
         void loop();
 
     private:
-    	void save();
-    	void load();
+        void save();
+        void load();
         void reset_canvas();
         void scan();
         void fill_canvas(unsigned col);
@@ -275,26 +276,26 @@ void Canvas::reset_canvas(){
 void Canvas::scan(){
     for (int y=0;y<max_y;y++){
         for (int x=0;x<max_x;x++){
-		        switch (pixel[y][x]){
-		            case color::Black:  attrset(COLOR_PAIR(2));break;
-		            case color::Red:    attrset(COLOR_PAIR(3));break;
-		            case color::Green:  attrset(COLOR_PAIR(4));break;
-		            case color::Yellow: attrset(COLOR_PAIR(5));break;
-		            case color::Blue:   attrset(COLOR_PAIR(6));break;
-		            case color::Purple: attrset(COLOR_PAIR(7));break;
-		            case color::Cyan:   attrset(COLOR_PAIR(8));break;
-		            case color::White:  attrset(COLOR_PAIR(9));break;
-		            case color::Black+color::Bright:  attrset(COLOR_PAIR(10));break;
-		            case color::Red+color::Bright:    attrset(COLOR_PAIR(11));break;
-		            case color::Green+color::Bright:  attrset(COLOR_PAIR(12));break;
-		            case color::Yellow+color::Bright: attrset(COLOR_PAIR(13));break;
-		            case color::Blue+color::Bright:   attrset(COLOR_PAIR(14));break;
-		            case color::Purple+color::Bright: attrset(COLOR_PAIR(15));break;
-		            case color::Cyan+color::Bright:   attrset(COLOR_PAIR(16));break;
-		            case color::White+color::Bright:  attrset(COLOR_PAIR(17));break;
-		        }
-		        mvprintw(1+y, 1+x, "█");standend();
-		    }
+                switch (pixel[y][x]){
+                    case color::Black:  attrset(COLOR_PAIR(2));break;
+                    case color::Red:    attrset(COLOR_PAIR(3));break;
+                    case color::Green:  attrset(COLOR_PAIR(4));break;
+                    case color::Yellow: attrset(COLOR_PAIR(5));break;
+                    case color::Blue:   attrset(COLOR_PAIR(6));break;
+                    case color::Purple: attrset(COLOR_PAIR(7));break;
+                    case color::Cyan:   attrset(COLOR_PAIR(8));break;
+                    case color::White:  attrset(COLOR_PAIR(9));break;
+                    case color::Black+color::Bright:  attrset(COLOR_PAIR(10));break;
+                    case color::Red+color::Bright:    attrset(COLOR_PAIR(11));break;
+                    case color::Green+color::Bright:  attrset(COLOR_PAIR(12));break;
+                    case color::Yellow+color::Bright: attrset(COLOR_PAIR(13));break;
+                    case color::Blue+color::Bright:   attrset(COLOR_PAIR(14));break;
+                    case color::Purple+color::Bright: attrset(COLOR_PAIR(15));break;
+                    case color::Cyan+color::Bright:   attrset(COLOR_PAIR(16));break;
+                    case color::White+color::Bright:  attrset(COLOR_PAIR(17));break;
+                }
+                mvprintw(1+y, 1+x, "█");standend();
+            }
     }
     refresh();
 }
