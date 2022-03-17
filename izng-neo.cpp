@@ -78,14 +78,14 @@ class Canvas
         void loop();
 
     private:
-        void save();
-        void load();
         void reset_canvas();
         void scan();
         void fill_canvas(unsigned col);
         void draw_cursor();
         void keep_in_range();
         void print_status();
+        void save();
+        void load();
 };
 
 #define key_highlight_on attrset(COLOR_PAIR(1) | A_BOLD | A_REVERSE)
@@ -262,20 +262,16 @@ void Canvas::loop(){
             case 32: case 10: // enter / space
                 pixel[cursor.cury][cursor.curx] = cursor.color;break;
             case KEY_F(1): // F1
-                {
-                    endwin();
-                    save();
-                    refresh();
-                    break;
-                }
+                endwin();
+                save();
+                refresh();
+                break;
             case KEY_F(2): // F2
-                {
-                    endwin();
-                    load();
-                    scan();
-                    refresh();
-                    break;
-                }
+                endwin();
+                load();
+                scan();
+                refresh();
+                break;
             case KEY_F(3): // F3
                 end();break;
         }
