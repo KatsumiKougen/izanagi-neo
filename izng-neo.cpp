@@ -206,7 +206,9 @@ void Canvas::start(){
     key_highlight_off;mvprintw(13, 66, "use light colours");
 
     key_highlight_on;mvprintw(15, 53, "9");
-    key_highlight_off;mvprintw(15, 55, "fill the canvas with the current colour");
+    key_highlight_off;mvprintw(15, 55, "fill an area");
+    key_highlight_on;mvprintw(15, 68, "0");
+    key_highlight_off;mvprintw(15, 70, "fill the canvas");
 
     key_highlight_on;mvprintw(17, 53, "F1");
     key_highlight_off;mvprintw(17, 56, "save your work");
@@ -283,7 +285,9 @@ void Canvas::loop(){
                 cursor.color = color::Cyan+color::Bright;break;
             case 42:
                 cursor.color = color::White+color::Bright;break;
-            case 57: // nine
+            case 57: // zero
+                fill_area(cursor.color);break;
+            case 48: // nine
                 fill_canvas(cursor.color);break;
             case 91: // [
                 fill.x0 = cursor.curx;
@@ -293,8 +297,6 @@ void Canvas::loop(){
                 fill.x1 = cursor.curx;
                 fill.y1 = cursor.cury;
                 break;
-            case 48: // zero
-                fill_area(cursor.color);break;
             case 32: case 10: // enter / space
                 pixel[cursor.cury][cursor.curx] = cursor.color;break;
             case KEY_F(1): // F1
