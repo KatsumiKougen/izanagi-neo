@@ -140,7 +140,7 @@ void Canvas::init_color(){
     init_pair(16, color::Cyan+color::Bright,   0);
     init_pair(17, color::White+color::Bright,  0);
     init_pair(18, color::Yellow+color::Bright, 0); // splash
-    init_pair(19, color::Yellow+color::Bright, color::Blue); // cursor
+    init_pair(19, color::Yellow+color::Bright, color::Red+color::Bright); // cursor
 }
 
 void Canvas::start(){
@@ -412,8 +412,8 @@ void Canvas::fill_area(short col){
 }
 
 void Canvas::draw_cursor(){
-    attrset(COLOR_PAIR(19) | A_BOLD | A_BLINK);
-    mvprintw(1+cursor.cury, 1+cursor.curx, "C");
+    attrset(COLOR_PAIR(19));
+    mvprintw(1+cursor.cury, 1+cursor.curx, "▒");
     standend();
     refresh();
 }
