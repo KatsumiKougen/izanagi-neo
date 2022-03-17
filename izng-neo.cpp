@@ -10,7 +10,7 @@
 
 const int max_x = 50, max_y = 25;
 namespace color {
-    enum {Black, Red, Green, Yellow, Blue, Purple, Cyan, White, Bright};
+    short enum {Black, Red, Green, Yellow, Blue, Purple, Cyan, White, Bright};
 }
 
 static std::vector<const char*> splash = {
@@ -50,7 +50,7 @@ static std::vector<const char*> splash = {
     "Don't lose your kindness. Take care of the weak and help each other.",
     "We're here to combine our powers with the system, and to fight together!",
     "If that setting sun is me, then the sun tomorrow will be you.",
-    "They didn't just love you for being a Linux distro, they loved you for being their friend.",
+    "They didn't just love you for being a Linux distro,\nthey loved you for being their friend.",
     "I do not care for much else; all I wish is to protect you!",
     "See the Explosive Power of the Ultimate Hot Battle!",
     "I need to be like you! I need your power!",
@@ -61,15 +61,40 @@ static std::vector<const char*> splash = {
     "I light the darkness and strike at evil!",
     "Sitting around doing nothing won't get us anywhere!",
     "I ask that you chant my name!",
-    "Smile, smile!"
+    "Smile, smile!",
+    "I'll lay down my life... to compile this source code!",
+    "You are a sad, strange little program, and you have my pity.",
+    "The programs pick the data, the programs keep the data, and the users... leave!",
+    "We have a program in need, and we will not rest until he's safe in /lib/apt!",
+    "I'll kidnap 1000 programs before I let this Git repo offline!\nAnd I'll silence anyone who gets in my way!",
+    "Programs are friends, not junk.",
+    "Where is my Super User?!",
+    "We siphoned your stack memory while you were offline. Kachow!",
+    "You are a user! A user makes; a thief takes. You are not a thief.",
+    "Out there is our home. \"/home\", Sudo. And it's in trouble.",
+    "After this operation, (A) 113 kB disk space will be— SQUIRREL!",
+    "This is what happens when you programs try to think!\nWe're all just binaries, waitin' to be deleted!",
+    "Whatever you do, DO NOT RUN the free Bash code. It has TURNED.",
+    "Stop! STOP! YOU’RE COVERED WITH POINTERS!! You’re not naked.\nIt’s like anyone gonna see you. Now you done it.",
+    "Optimisation is the true measure of a program.\nIf you are not optimised, what kind of a program are you?",
+    "Programs can't quit, genius!",
+    "I don't know. I'm going home. Do you know how far /mnt/clwtth is?",
+    "Sigourney Weaver is going to help us!",
+    "If you were a system file, you'd know what I'm talking about,\nbut you're not, so you don't!",
+    "2 seconds and you already break your while-loop!",
+    "Our sweet parents were fools to put their lives in anybody else's hands!\nSuperusers keep us weak!",
+    "I am not a toy, I'm a FOSS fork."
 };
 
 class Canvas
 {
     unsigned short pixel[max_y][max_x];
-        struct {
-            unsigned curx = 0, cury = 0, color = 0;
-        } cursor;
+    struct {
+        short curx = 0, cury = 0, color = 0;
+    } cursor;
+    struct {
+        short x0 = 0, y0 = 0, x1 = 0, y1 = 0;
+    } fill;
 
     public:
         void init_color();
@@ -80,7 +105,8 @@ class Canvas
     private:
         void reset_canvas();
         void scan();
-        void fill_canvas(unsigned col);
+        void fill_canvas(short col);
+        void fill_area(short col);
         void draw_cursor();
         void keep_in_range();
         void print_status();
@@ -132,15 +158,15 @@ void Canvas::start(){
     reset_canvas();
 
     attrset(COLOR_PAIR(1));
-    for (int i=0;i<52;i++)
+    for (int i = 0; i < 52; i++)
         mvprintw(0, i, ":");
-    for (int i=1;i<26;i++){
+    for (int i = 1; i < 26; i++){
         mvprintw(i, 0, ":");
-        for (int j=1;j<51;j++)
+        for (int j = 1; j < 51; j++)
             mvprintw(i, j, " ");
         mvprintw(i, 51, ":");
     }
-    for (int i=0;i<52;i++)
+    for (int i = 0; i < 52; i++)
         mvprintw(26, i, ":");
 
     mvprintw(0, 53, "▜▘▀▜ ▐▌▙▐ ▐▌▞▀▝▛    ▐▖▌▛▘▞▜");
@@ -259,6 +285,16 @@ void Canvas::loop(){
                 cursor.color = color::White+color::Bright;break;
             case 57: // nine
                 fill_canvas(cursor.color);break;
+            case 91: // [
+                fill.x0 = cursor.curx;
+                fill.y0 = cursor.cury;
+                break;
+            case 93: // ]
+                fill.x1 = cursor.curx;
+                fill.y1 = cursor.cury;
+                break;
+            case 48: // zero
+                fill_area(cursor.color);break;
             case 32: case 10: // enter / space
                 pixel[cursor.cury][cursor.curx] = cursor.color;break;
             case KEY_F(1): // F1
@@ -279,58 +315,35 @@ void Canvas::loop(){
 }
 
 void Canvas::reset_canvas(){
-    for (int y=0;y<max_y;y++){
-        for (int x=0;x<max_x;x++)
+    for (int y = 0; y < max_y; y++)
+        for (int x=0;x < max_x; x++)
             pixel[y][x] = color::Black;
-    }
 }
 
 void Canvas::scan(){
-    for (int y=0;y<max_y;y++){
-        for (int x=0;x<max_x;x++){
-                switch (pixel[y][x]){
-                    case color::Black:  attrset(COLOR_PAIR(2));break;
-                    case color::Red:    attrset(COLOR_PAIR(3));break;
-                    case color::Green:  attrset(COLOR_PAIR(4));break;
-                    case color::Yellow: attrset(COLOR_PAIR(5));break;
-                    case color::Blue:   attrset(COLOR_PAIR(6));break;
-                    case color::Purple: attrset(COLOR_PAIR(7));break;
-                    case color::Cyan:   attrset(COLOR_PAIR(8));break;
-                    case color::White:  attrset(COLOR_PAIR(9));break;
-                    case color::Black+color::Bright:  attrset(COLOR_PAIR(10));break;
-                    case color::Red+color::Bright:    attrset(COLOR_PAIR(11));break;
-                    case color::Green+color::Bright:  attrset(COLOR_PAIR(12));break;
-                    case color::Yellow+color::Bright: attrset(COLOR_PAIR(13));break;
-                    case color::Blue+color::Bright:   attrset(COLOR_PAIR(14));break;
-                    case color::Purple+color::Bright: attrset(COLOR_PAIR(15));break;
-                    case color::Cyan+color::Bright:   attrset(COLOR_PAIR(16));break;
-                    case color::White+color::Bright:  attrset(COLOR_PAIR(17));break;
-                }
-                mvprintw(1+y, 1+x, "█");standend();
+    for (int y = 0; y < max_y; y++)
+        for (int x = 0; x < max_x; x++){
+            switch (pixel[y][x]){
+                case color::Black:  attrset(COLOR_PAIR(2));break;
+                case color::Red:    attrset(COLOR_PAIR(3));break;
+                case color::Green:  attrset(COLOR_PAIR(4));break;
+                case color::Yellow: attrset(COLOR_PAIR(5));break;
+                case color::Blue:   attrset(COLOR_PAIR(6));break;
+                case color::Purple: attrset(COLOR_PAIR(7));break;
+                case color::Cyan:   attrset(COLOR_PAIR(8));break;
+                case color::White:  attrset(COLOR_PAIR(9));break;
+                case color::Black+color::Bright:  attrset(COLOR_PAIR(10));break;
+                case color::Red+color::Bright:    attrset(COLOR_PAIR(11));break;
+                case color::Green+color::Bright:  attrset(COLOR_PAIR(12));break;
+                case color::Yellow+color::Bright: attrset(COLOR_PAIR(13));break;
+                case color::Blue+color::Bright:   attrset(COLOR_PAIR(14));break;
+                case color::Purple+color::Bright: attrset(COLOR_PAIR(15));break;
+                case color::Cyan+color::Bright:   attrset(COLOR_PAIR(16));break;
+                case color::White+color::Bright:  attrset(COLOR_PAIR(17));break;
             }
-    }
+            mvprintw(1+y, 1+x, "█");standend();
+        }
     refresh();
-}
-
-void Canvas::fill_canvas(unsigned col){
-    for (int y=0;y<max_y;y++){
-        for (int x=0;x<max_x;x++)
-            pixel[y][x] = col;
-    }
-}
-
-void Canvas::draw_cursor(){
-    attrset(COLOR_PAIR(19) | A_BOLD | A_BLINK);
-    mvprintw(1+cursor.cury, 1+cursor.curx, "C");
-    standend();
-    refresh();
-}
-
-void Canvas::keep_in_range(){
-    if (cursor.curx < 0) cursor.curx = 0;
-    else if (cursor.curx > max_x-1) cursor.curx = max_x - 1;
-    else if (cursor.cury < 0) cursor.cury = 0;
-    else if (cursor.cury > max_y-1) cursor.cury = max_y - 1;
 }
 
 void Canvas::print_status(){
@@ -338,6 +351,10 @@ void Canvas::print_status(){
     key_highlight_off;mvprintw(23, 55, "%d ", cursor.curx);
     key_highlight_on;mvprintw(23, 58, "Y");
     key_highlight_off;mvprintw(23, 60, "%d ", cursor.cury);
+    key_highlight_on;mvprintw(23, 64, "F0");
+    key_highlight_off;mvprintw(23, 67, "%d %d  ", fill.x0, fill.y0);
+    key_highlight_on;mvprintw(23, 73, "F1");
+    key_highlight_off;mvprintw(23, 76, "%d %d  ", fill.x1, fill.y1);
     key_highlight_on;mvprintw(24, 53, "COLOR");
     key_highlight_off;
     switch (cursor.color){
@@ -378,6 +395,34 @@ void Canvas::print_status(){
     refresh();
 }
 
+void Canvas::fill_canvas(short col){
+    for (int y = 0; y < max_y; y++)
+        for (int x = 0; x < max_x; x++)
+            pixel[y][x] = col;
+}
+
+void Canvas::fill_area(short col){
+    int starty = std::min(fill.y0, fill.y1), endy = std::max(fill.y0, fill.y1) + 1;
+    int startx = std::min(fill.x0, fill.x1), endx = std::max(fill.x0, fill.x1) + 1;
+    for(int y = starty; y < endy; ++y)
+        for(int x = startx; x < endx; ++x)
+            pixel[y][x] = col;
+}
+
+void Canvas::draw_cursor(){
+    attrset(COLOR_PAIR(19) | A_BOLD | A_BLINK);
+    mvprintw(1+cursor.cury, 1+cursor.curx, "C");
+    standend();
+    refresh();
+}
+
+void Canvas::keep_in_range(){
+    if (cursor.curx < 0) cursor.curx = 0;
+    else if (cursor.curx > max_x-1) cursor.curx = max_x - 1;
+    else if (cursor.cury < 0) cursor.cury = 0;
+    else if (cursor.cury > max_y-1) cursor.cury = max_y - 1;
+}
+
 void Canvas::save(){
     char infilename[0xfff];
     std::cout << "enter file name (example: owo.iz2): ";
@@ -386,8 +431,8 @@ void Canvas::save(){
     std::ofstream outf{infilename};
 
     while (outf){
-        for (int y=0;y<max_y;y++){
-            for (int x=0;x<max_x;x++)
+        for (int y = 0; y < max_y; y++)
+            for (int x = 0; x < max_x; x++)
                 switch (pixel[y][x]){
                     case color::Black:  outf << "0";break;
                     case color::Red:    outf << "1";break;
@@ -405,7 +450,6 @@ void Canvas::save(){
                     case color::Purple+color::Bright: outf << "d";break;
                     case color::Cyan+color::Bright:   outf << "e";break;
                     case color::White+color::Bright:  outf << "f";break;
-                }
         }
         outf.close();
     }
@@ -428,8 +472,8 @@ void Canvas::load(){
     } else {
         while (inf){
             inf >> data;
-            for (int y=0;y<max_y;y++){
-                for (int x=0;x<max_x;x++)
+            for (int y = 0; y < max_y; y++)
+                for (int x = 0; x < max_x; x++)
                     switch (data[max_x*y+x]){
                         case (char)48: pixel[y][x] = color::Black;break;
                         case (char)49: pixel[y][x] = color::Red;break;
@@ -448,7 +492,6 @@ void Canvas::load(){
                         case (char)101: pixel[y][x] = color::Cyan+color::Bright;break;
                         case (char)102: pixel[y][x] = color::White+color::Bright;break;
                     }
-            }
             inf.close();
         }
     }
@@ -462,7 +505,7 @@ int main(){
     std::cout << "▜▘▀▜ ▐▌▙▐ ▐▌▞▀▝▛    ▐▖▌▛▘▞▜  |  written in C++ by Katsumi Kougen\n"
                  "▐ ▗▘ ▙▌▌▜ ▙▌▌▗ ▌ ▟█▘▐▝▌▛ ▌▐  |  github.com/KatsumiKougen\n"
                  "▟▖▙▄▐ ▌▌▐▐ ▌▙▟▗▙    ▐ ▌▙▖▙▞  |  this software is free, as in \"\x1b[4mfree\x1b[0m candy,  kids!\"\n"
-                 "                             |  special thanks to: Warp\n\n"
+                 "                             |  special thanks to: Warp, Bisqwit\n\n"
                  "initialising \x1b[1mizanagi-neo\x1b[0m...\n";
     Canvas cv;
     setlocale(LC_ALL, "");
