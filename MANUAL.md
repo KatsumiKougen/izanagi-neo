@@ -5,7 +5,7 @@
 |[Space bar](https://en.wikipedia.org/wiki/Space_bar)<br>or<br>[`ENTER` key](https://en.wikipedia.org/wiki/Enter_key)|Plot the pixel|The same, only this time,<br>*if pressed when the cursor<br>is on a plotted pixel, it un-<br>plot the pixel.*|
 |[`F3`](https://en.wikipedia.org/wiki/Function_key)|~~Rage quit~~<br>Exit the program|The same|
 
-[**KM**](https://ultra.fandom.com/wiki/Kengo_Manaka): I have a question... why WASD keys?<br>That's for computer games, not a <br>rudimentary C++ art prog—<br>[**Me**](https://github.com/KatsumiKougen): ***Oh, shut up! You people don't<br>understand art!***
+[**KM**](https://ultra.fandom.com/wiki/Kengo_Manaka): I have a question... why WASD keys? That's for computer games, not a rudimentary C++ art prog—<br>[**Me**](https://github.com/KatsumiKougen): ***Oh, shut up! You people don't<br>understand art!***
 
 # Not so basic controls
 |Key|*izanagi-neo*|*izanagi-neo* high-res|
