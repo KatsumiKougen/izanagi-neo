@@ -1,5 +1,7 @@
 CXX=g++
 CXXFLAGS=-std=c++17 -Wall -Wextra -pedantic
+IZNEO=izng-neo.cpp
+IZHR=izng-neo-highres.cpp
 
 NCURSES=-lncursesw
 OPT=-O
@@ -18,18 +20,18 @@ all: all-color all-highres
 all-color: opt opt-f opt-s no-opt
 all-highres: hr-opt hr-opt-f hr-opt-s hr-no-opt
 opt: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) $(OPT) -o $(OUTPUT-O)
+	$(CXX) $(IZNEO) $(CXXFLAGS) $(NCURSES) $(OPT) -o $(OUTPUT-O)
 opt-f: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) $(OPTF) -o $(OUTPUT-F)
+	$(CXX) $(IZNEO) $(CXXFLAGS) $(NCURSES) $(OPTF) -o $(OUTPUT-F)
 opt-s: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) $(OPTS) -o $(OUTPUT-S)
+	$(CXX) $(IZNEO) $(CXXFLAGS) $(NCURSES) $(OPTS) -o $(OUTPUT-S)
 no-opt: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) -o $(OUTPUT)
+	$(CXX) $(IZNEO) $(CXXFLAGS) $(NCURSES) -o $(OUTPUT)
 hr-opt: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) $(OPT) -o $(OUTPUTHR-O)
+	$(CXX) $(IZHR) $(CXXFLAGS) $(NCURSES) $(OPT) -o $(OUTPUTHR-O)
 hr-opt-f: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) $(OPTF) -o $(OUTPUTHR-F)
+	$(CXX) $(IZHR) $(CXXFLAGS) $(NCURSES) $(OPTF) -o $(OUTPUTHR-F)
 hr-opt-s: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) $(OPTS) -o $(OUTPUTHR-S)
+	$(CXX) $(IZHR) $(CXXFLAGS) $(NCURSES) $(OPTS) -o $(OUTPUTHR-S)
 hr-no-opt: izng-neo.cpp
-	 $(CXX) izng-neo.cpp $(CXXFLAGS) $(NCURSES) -o $(OUTPUTHR)
+	$(CXX) $(IZHR) $(CXXFLAGS) $(NCURSES) -o $(OUTPUTHR)
