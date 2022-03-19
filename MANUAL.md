@@ -26,6 +26,6 @@
 |[`F-feralgan`<br>`500mg`](https://www.google.com/search?q=efferalgan+500mg)|Cures your headache|Also cures your headache|
 ----
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>Looks like Katsumi and [Engineer Man](https://github.com/engineer-man) are [blasting off](https://bulbapedia.bulbagarden.net/wiki/Team_Rocket_mottos#Blasting_off) again!</small>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:.8em;">Looks like Katsumi and [Engineer Man](https://github.com/engineer-man) are [blasting off](https://bulbapedia.bulbagarden.net/wiki/Team_Rocket_mottos#Blasting_off) again!</span>
 
 ----
