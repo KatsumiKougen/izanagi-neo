@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+#include <cstring>
 #include <unistd.h>
 #include <ncurses.h>
 #include <string>
@@ -354,34 +355,52 @@ void Canvas::keep_in_range(){
 }
 
 void Canvas::save(){
+    int infiletype;
     char infilename[0xfff];
-    std::cout << "enter file name (example: owo.iz2): ";
+    std::cout << "choose file type:\n"
+                 "1 - .iz2 (standard mode)\n"
+                 "2 - .iz2l (legacy mode)\n";
+    std::cin >> infiletype;
+    std::cout << "enter file name: ";
     std::cin >> infilename;
 
-    std::ofstream outf{infilename};
+    if (infiletype == 1){
+        std::strcat(infilename, ".iz2");
+        std::ofstream outf{infilename};
 
-    while (outf){
-        for (int y = 0; y < max_y; y++)
-            for (int x = 0; x < max_x; x++)
-                switch (pixel[y][x]){
-                    case color::Black:  outf << "0";break;
-                    case color::Red:    outf << "1";break;
-                    case color::Green:  outf << "2";break;
-                    case color::Yellow: outf << "3";break;
-                    case color::Blue:   outf << "4";break;
-                    case color::Purple: outf << "5";break;
-                    case color::Cyan:   outf << "6";break;
-                    case color::White:  outf << "7";break;
-                    case color::Black+color::Bright:  outf << "8";break;
-                    case color::Red+color::Bright:    outf << "9";break;
-                    case color::Green+color::Bright:  outf << "a";break;
-                    case color::Yellow+color::Bright: outf << "b";break;
-                    case color::Blue+color::Bright:   outf << "c";break;
-                    case color::Purple+color::Bright: outf << "d";break;
-                    case color::Cyan+color::Bright:   outf << "e";break;
-                    case color::White+color::Bright:  outf << "f";break;
+        while (outf){
+            for (int y = 0; y < max_y; y++)
+                for (int x = 0; x < 25; x++)
+                    outf << (char)((pixel[y][x*2] << 4) | pixel[y][x*2+1]);
+            outf.close();
         }
-        outf.close();
+    } else if (infiletype == 2){
+        std::strcat(infilename, ".iz2l");
+        std::ofstream outf{infilename};
+
+        while (outf){
+            for (int y = 0; y < max_y; y++)
+                for (int x = 0; x < max_x; x++)
+                    switch (pixel[y][x]){
+                        case color::Black:  outf << "0";break;
+                        case color::Red:    outf << "1";break;
+                        case color::Green:  outf << "2";break;
+                        case color::Yellow: outf << "3";break;
+                        case color::Blue:   outf << "4";break;
+                        case color::Purple: outf << "5";break;
+                        case color::Cyan:   outf << "6";break;
+                        case color::White:  outf << "7";break;
+                        case color::Black+color::Bright:  outf << "8";break;
+                        case color::Red+color::Bright:    outf << "9";break;
+                        case color::Green+color::Bright:  outf << "a";break;
+                        case color::Yellow+color::Bright: outf << "b";break;
+                        case color::Blue+color::Bright:   outf << "c";break;
+                        case color::Purple+color::Bright: outf << "d";break;
+                        case color::Cyan+color::Bright:   outf << "e";break;
+                        case color::White+color::Bright:  outf << "f";break;
+                    }
+            outf.close();
+        }
     }
     std::cout << "(>\x1b[1;93m^w^\x1b[0m)> \x1b[3m[insert Final Fantasy victory theme here]\n"
                  "\x1b[0mfile \"" << infilename << "\" has been written.\n";
@@ -389,46 +408,72 @@ void Canvas::save(){
 }
 
 void Canvas::load(){
+    int outfiletype;
     char outfilename[0xfff];
-    std::cout << "enter file name (example: owo.iz2): ";
+    std::cout << "choose file type:\n"
+                 "1 - .iz2 (standard mode)\n"
+                 "2 - .iz2l (legacy mode)\n";
+    std::cin >> outfiletype;
+    std::cout << "enter file name: ";
     std::cin >> outfilename;
 
-    std::ifstream inf{outfilename};
-    char data[1250];
-    if (!inf){
-        std::cerr << "welp that sucks.\nthe program couldn't open the file.";
-        sleep(2);
-        refresh();
-    } else {
-        while (inf){
-            inf >> data;
-            for (int y = 0; y < max_y; y++)
-                for (int x = 0; x < max_x; x++)
-                    switch (data[max_x*y+x]){
-                        case (char)48: pixel[y][x] = color::Black;break;
-                        case (char)49: pixel[y][x] = color::Red;break;
-                        case (char)50: pixel[y][x] = color::Green;break;
-                        case (char)51: pixel[y][x] = color::Yellow;break;
-                        case (char)52: pixel[y][x] = color::Blue;break;
-                        case (char)53: pixel[y][x] = color::Purple;break;
-                        case (char)54: pixel[y][x] = color::Cyan;break;
-                        case (char)55: pixel[y][x] = color::White;break;
-                        case (char)56: pixel[y][x] = color::Black+color::Bright;break;
-                        case (char)57: pixel[y][x] = color::Red+color::Bright;break;
-                        case (char)97: pixel[y][x] = color::Green+color::Bright;break;
-                        case (char)98: pixel[y][x] = color::Yellow+color::Bright;break;
-                        case (char)99: pixel[y][x] = color::Blue+color::Bright;break;
-                        case (char)100: pixel[y][x] = color::Purple+color::Bright;break;
-                        case (char)101: pixel[y][x] = color::Cyan+color::Bright;break;
-                        case (char)102: pixel[y][x] = color::White+color::Bright;break;
+    if (outfiletype == 1){
+        std::strcat(outfilename, ".iz2");
+        std::ifstream inf{outfilename};
+        char data[625];
+        if (!inf)
+            std::cerr << "welp that sucks.\nthe program couldn't open the file.";
+        else {
+            while (inf){
+                inf >> data;
+                for (int y = 0; y < max_y; y++)
+                    for (int x = 0; x < 25; x++){
+                        pixel[y][x*2] = data[25*y+x] >> 4;
+                        pixel[y][x*2+1] = data[25*y+x] & 15;
                     }
+                inf.close();
+            }
+            std::cout << "(>\x1b[1;93m^w^\x1b[0m)> \x1b[3m[insert Final Fantasy victory theme here]\n"
+                         "\x1b[0mfile successfully opened.\n";
+        }
+    } else if (outfiletype == 2){
+        std::strcat(outfilename, ".iz2l");
+        std::ifstream inf{outfilename};
+        char data[1250];
+        if (!inf)
+            std::cerr << "welp that sucks.\nthe program couldn't open the file.";
+        else {
+            while (inf){
+                inf >> data;
+                for (int y = 0; y < max_y; y++)
+                    for (int x = 0; x < max_x; x++)
+                        switch (data[max_x*y+x]){
+                            case (char)48: pixel[y][x] = color::Black;break;
+                            case (char)49: pixel[y][x] = color::Red;break;
+                            case (char)50: pixel[y][x] = color::Green;break;
+                            case (char)51: pixel[y][x] = color::Yellow;break;
+                            case (char)52: pixel[y][x] = color::Blue;break;
+                            case (char)53: pixel[y][x] = color::Purple;break;
+                            case (char)54: pixel[y][x] = color::Cyan;break;
+                            case (char)55: pixel[y][x] = color::White;break;
+                            case (char)56: pixel[y][x] = color::Black+color::Bright;break;
+                            case (char)57: pixel[y][x] = color::Red+color::Bright;break;
+                            case (char)97: pixel[y][x] = color::Green+color::Bright;break;
+                            case (char)98: pixel[y][x] = color::Yellow+color::Bright;break;
+                            case (char)99: pixel[y][x] = color::Blue+color::Bright;break;
+                            case (char)100: pixel[y][x] = color::Purple+color::Bright;break;
+                            case (char)101: pixel[y][x] = color::Cyan+color::Bright;break;
+                            case (char)102: pixel[y][x] = color::White+color::Bright;break;
+                        }
+            }
             inf.close();
+            std::cout << "(>\x1b[1;93m^w^\x1b[0m)> \x1b[3m[insert Final Fantasy victory theme here]\n"
+                     "\x1b[0mfile successfully opened.\n";
         }
     }
 
-    std::cout << "(>\x1b[1;93m^w^\x1b[0m)> \x1b[3m[insert Final Fantasy victory theme here]\n"
-                 "\x1b[0mfile successfully opened.\n";
     sleep(2);
+    refresh();
 }
 
 int main(){
