@@ -52,7 +52,7 @@ class Canvas
 
 void Canvas::init_color(){
     init_pair(1, 15, 0); // default
-    for (int i = 0;i<8;i++){
+    for (int i = 0; i < 8; i++){
         init_pair(8*i+2, color::Black,  i);
         init_pair(8*i+3, color::Red,    i);
         init_pair(8*i+4, color::Green,  i);
@@ -173,6 +173,14 @@ void Canvas::loop(){
                 break;
             case KEY_RIGHT: case 68: case 100:
                 cursor.curx++;
+                keep_in_range();
+                break;
+            case 113:
+                cursor.curx -= 2;
+                keep_in_range();
+                break;
+            case 101:
+                cursor.curx += 2;
                 keep_in_range();
                 break;
             case 49: // one

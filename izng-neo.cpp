@@ -182,6 +182,14 @@ void Canvas::loop(){
                 cursor.curx++;
                 keep_in_range();
                 break;
+            case 113:
+                cursor.curx -= 2;
+                keep_in_range();
+                break;
+            case 101:
+                cursor.curx += 2;
+                keep_in_range();
+                break;
             case 49: // one
                 cursor.color = color::Black;break;
             case 50: // two
