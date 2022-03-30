@@ -172,5 +172,5 @@ static std::vector<const char*> splash = {
     "Since I don't have a brain, they come into my stomach, down deep below,\nand then up again into my mind. Aah!",
     "Classified, eh? What is that, uh, Dutch? Can't really hear the accent.",
     "\"Sir, how long do we stand here like this?\" \"Until we've reached maximum coolness.\"",
-    "\"He is not my friend.\" \"The Internet does not lie!\""
+    "\"He is not my friend.\" \"The Internet does not lie!\"" 
 };
