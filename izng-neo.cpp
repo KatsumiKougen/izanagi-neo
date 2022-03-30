@@ -24,6 +24,7 @@ class Canvas
     struct {
         short x0 = 0, y0 = 0, x1 = 0, y1 = 0;
     } fill;
+    char* current_splash;
 
     public:
         void init_color();
@@ -85,71 +86,7 @@ void Canvas::start(){
     start_color();
     init_color();
     reset_canvas();
-
-    attrset(COLOR_PAIR(1));
-    for (int i = 0; i < 52; i++)
-        mvprintw(0, i, ":");
-    for (int i = 1; i < 26; i++){
-        mvprintw(i, 0, ":");
-        for (int j = 1; j < 51; j++)
-            mvprintw(i, j, " ");
-        mvprintw(i, 51, ":");
-    }
-    for (int i = 0; i < 52; i++)
-        mvprintw(26, i, ":");
-
-    mvprintw(0, 53, "▜▘▀▜ ▐▌▙▐ ▐▌▞▀▝▛    ▐▖▌▛▘▞▜");
-    mvprintw(1, 53, "▐ ▗▘ ▙▌▌▜ ▙▌▌▗ ▌ ▟█▘▐▝▌▛ ▌▐");
-    mvprintw(2, 53, "▟▖▙▄▐ ▌▌▐▐ ▌▙▟▗▙    ▐ ▌▙▖▙▞");
-
-    key_highlight_on;mvprintw(4, 53, "WASD");
-    key_highlight_off;mvprintw(4, 57, "/");
-    key_highlight_on;mvprintw(4, 58, "⬆➡⬇⬅");
-    key_highlight_off;mvprintw(4, 63, "move the cursor");
-
-    key_highlight_on;mvprintw(6, 53, "ENTER");
-    key_highlight_off;mvprintw(6, 58, "/");
-    key_highlight_on;mvprintw(6, 59, "SPACEBAR");
-    key_highlight_off;mvprintw(6, 68, "plot the pixel");
-
-    key_highlight_on;mvprintw(8, 53, "1");
-    key_highlight_off;mvprintw(8, 55, "black");
-    key_highlight_on;mvprintw(8, 61, "2");
-    key_highlight_off;mvprintw(8, 63, "red");
-    key_highlight_on;mvprintw(9, 53, "3");
-    key_highlight_off;mvprintw(9, 55, "green");
-    key_highlight_on;mvprintw(9, 61, "4");
-    key_highlight_off;mvprintw(9, 63, "yellow");
-    key_highlight_on;mvprintw(10, 53, "5");
-    key_highlight_off;mvprintw(10, 55, "blue");
-    key_highlight_on;mvprintw(10, 61, "6");
-    key_highlight_off;mvprintw(10, 63, "purple");
-    key_highlight_on;mvprintw(11, 53, "7");
-    key_highlight_off;mvprintw(11, 55, "cyan");
-    key_highlight_on;mvprintw(11, 61, "8");
-    key_highlight_off;mvprintw(11, 63, "white");
-
-    key_highlight_on;mvprintw(13, 53, "SHIFT");
-    key_highlight_off;mvprintw(13, 58, "+");
-    key_highlight_on;mvprintw(13, 59, "numkey");
-    key_highlight_off;mvprintw(13, 66, "use light colours");
-
-    key_highlight_on;mvprintw(15, 53, "9");
-    key_highlight_off;mvprintw(15, 55, "fill an area");
-    key_highlight_on;mvprintw(15, 68, "0");
-    key_highlight_off;mvprintw(15, 70, "fill the canvas");
-
-    key_highlight_on;mvprintw(17, 53, "F1");
-    key_highlight_off;mvprintw(17, 56, "save your work");
-
-    key_highlight_on;mvprintw(19, 53, "F2");
-    key_highlight_off;mvprintw(19, 56, "load your work");
-
-    key_highlight_on;mvprintw(21, 53, "F3");
-    key_highlight_off;mvprintw(21, 56, "exit");
-    standend();
-
-    print_splash(splash[dist(engine)]);
+    current_splash = (char*)(splash[dist(engine)]);
 }
 
 void Canvas::end(){
@@ -161,9 +98,8 @@ void Canvas::end(){
 void Canvas::loop(){
     int key;
     while(1){
-        scan();
-        draw_cursor();
         print_status();
+        draw_cursor();
         key = getch();
         switch (key){
             case KEY_UP: case 87: case 119:
@@ -286,6 +222,68 @@ void Canvas::scan(){
 }
 
 void Canvas::print_status(){
+    attrset(COLOR_PAIR(1));
+    for (int i = 0; i < 52; i++)
+        mvprintw(0, i, ":");
+    for (int i = 1; i < 26; i++){
+        mvprintw(i, 0, ":");
+        for (int j = 1; j < 51; j++)
+            mvprintw(i, j, " ");
+        mvprintw(i, 51, ":");
+    }
+    for (int i = 0; i < 52; i++)
+        mvprintw(26, i, ":");
+    scan();
+
+    mvprintw(0, 53, "▜▘▀▜ ▐▌▙▐ ▐▌▞▀▝▛    ▐▖▌▛▘▞▜");
+    mvprintw(1, 53, "▐ ▗▘ ▙▌▌▜ ▙▌▌▗ ▌ ▟█▘▐▝▌▛ ▌▐");
+    mvprintw(2, 53, "▟▖▙▄▐ ▌▌▐▐ ▌▙▟▗▙    ▐ ▌▙▖▙▞");
+
+    key_highlight_on;mvprintw(4, 53, "WASD");
+    key_highlight_off;mvprintw(4, 57, "/");
+    key_highlight_on;mvprintw(4, 58, "⬆➡⬇⬅");
+    key_highlight_off;mvprintw(4, 63, "move the cursor");
+
+    key_highlight_on;mvprintw(6, 53, "ENTER");
+    key_highlight_off;mvprintw(6, 58, "/");
+    key_highlight_on;mvprintw(6, 59, "SPACEBAR");
+    key_highlight_off;mvprintw(6, 68, "plot the pixel");
+
+    key_highlight_on;mvprintw(8, 53, "1");
+    key_highlight_off;mvprintw(8, 55, "black");
+    key_highlight_on;mvprintw(8, 61, "2");
+    key_highlight_off;mvprintw(8, 63, "red");
+    key_highlight_on;mvprintw(9, 53, "3");
+    key_highlight_off;mvprintw(9, 55, "green");
+    key_highlight_on;mvprintw(9, 61, "4");
+    key_highlight_off;mvprintw(9, 63, "yellow");
+    key_highlight_on;mvprintw(10, 53, "5");
+    key_highlight_off;mvprintw(10, 55, "blue");
+    key_highlight_on;mvprintw(10, 61, "6");
+    key_highlight_off;mvprintw(10, 63, "purple");
+    key_highlight_on;mvprintw(11, 53, "7");
+    key_highlight_off;mvprintw(11, 55, "cyan");
+    key_highlight_on;mvprintw(11, 61, "8");
+    key_highlight_off;mvprintw(11, 63, "white");
+
+    key_highlight_on;mvprintw(13, 53, "SHIFT");
+    key_highlight_off;mvprintw(13, 58, "+");
+    key_highlight_on;mvprintw(13, 59, "numkey");
+    key_highlight_off;mvprintw(13, 66, "use light colours");
+
+    key_highlight_on;mvprintw(15, 53, "9");
+    key_highlight_off;mvprintw(15, 55, "fill an area");
+    key_highlight_on;mvprintw(15, 68, "0");
+    key_highlight_off;mvprintw(15, 70, "fill the canvas");
+
+    key_highlight_on;mvprintw(17, 53, "F1");
+    key_highlight_off;mvprintw(17, 56, "save your work");
+
+    key_highlight_on;mvprintw(19, 53, "F2");
+    key_highlight_off;mvprintw(19, 56, "load your work");
+
+    key_highlight_on;mvprintw(21, 53, "F3");
+    key_highlight_off;mvprintw(21, 56, "exit");
     key_highlight_on;mvprintw(23, 53, "X");
     key_highlight_off;mvprintw(23, 55, "%d ", cursor.curx);
     key_highlight_on;mvprintw(23, 58, "Y");
@@ -331,6 +329,7 @@ void Canvas::print_status(){
             mvprintw(24, 59, "white       ");break;
     }
     standend();
+    print_splash(current_splash);
     refresh();
 }
 

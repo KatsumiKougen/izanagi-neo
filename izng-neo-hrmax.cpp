@@ -24,6 +24,7 @@ class Canvas
         short x0 = 0, y0 = 0, x1 = 0, y1 = 0;
     } fill;
     short fore = 7, back = 0;
+    char* current_splash;
 
     public:
         void init_color();
@@ -79,27 +80,7 @@ void Canvas::start(){
     start_color();
     init_color();
     reset_canvas();
-
-    attrset(COLOR_PAIR(1));
-    for (int i = 0; i < 102; i++)
-        mvprintw(0, i, ":");
-    for (int i = 1; i < 26; i++){
-        mvprintw(i, 0, ":");
-        for (int j = 1; j < 101; j++)
-            mvprintw(i, j, " ");
-        mvprintw(i, 101, ":");
-    }
-    for (int i = 0; i < 102; i++)
-        mvprintw(26, i, ":");
-
-    key_highlight_on;mvprintw(28, 0, "F1");
-    key_highlight_off;mvprintw(28, 3, "save");
-    key_highlight_on;mvprintw(28, 8, "F2");
-    key_highlight_off;mvprintw(28, 11, "load");
-    key_highlight_on;mvprintw(28, 16, "F3");
-    key_highlight_off;mvprintw(28, 19, "exit");
-
-    print_splash(splash[dist(engine)]);
+    current_splash = (char*)(splash[dist(engine)]);
 }
 
 void Canvas::end(){
@@ -231,6 +212,26 @@ void Canvas::scan(){
 }
 
 void Canvas::print_status(){
+    attrset(COLOR_PAIR(1));
+    for (int i = 0; i < 102; i++)
+        mvprintw(0, i, ":");
+    for (int i = 1; i < 26; i++){
+        mvprintw(i, 0, ":");
+        for (int j = 1; j < 101; j++)
+            mvprintw(i, j, " ");
+        mvprintw(i, 101, ":");
+    }
+    for (int i = 0; i < 102; i++)
+        mvprintw(26, i, ":");
+    scan();
+
+    key_highlight_on;mvprintw(28, 0, "F1");
+    key_highlight_off;mvprintw(28, 3, "save");
+    key_highlight_on;mvprintw(28, 8, "F2");
+    key_highlight_off;mvprintw(28, 11, "load");
+    key_highlight_on;mvprintw(28, 16, "F3");
+    key_highlight_off;mvprintw(28, 19, "exit");
+
     key_highlight_on;mvprintw(27, 0, "X");
     key_highlight_off;mvprintw(27, 2, "%d  ", cursor.curx);
     key_highlight_on;mvprintw(27, 6, "Y");
@@ -300,6 +301,7 @@ void Canvas::print_status(){
             mvprintw(27, 54, "white ");break;
     }
     standend();
+    print_splash(current_splash);
     refresh();
 }
 
