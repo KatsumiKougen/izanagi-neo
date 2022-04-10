@@ -180,7 +180,7 @@ void Canvas::loop(){
 
 void Canvas::reset_canvas(){
     for (int y = 0; y < max_y; y++)
-        for (int x=0; x < max_x; x++)
+        for (int x = 0; x < max_x; x++)
             pixel[y][x] = 0;
 }
 
