@@ -28,7 +28,10 @@ static std::vector<const char*> splash = {
     "I will be the greatest, kindest daemon thread!", // Zi-O
     "There's only one optimised code! And that's me!", // Zero-One
     "I will decide this program's ending!", // Saber
-    "Keep on searching... Dealing with the format!", // Revice
+    "Keep on searching... Dealing with the format!", // Revice,
+    "Now, here comes the syntax highlight!", // Geats
+    "std::gotcha();" // Gotchard
+    "What will it be? Will you drop the Dark Fork Bombs for good? Or do I have to beat you down right here?" // Gavv
     "I was born to fight those who break system laws, like you.",
     "Look for that moving file, because that will be me.",
     "To love distros, you must know them.",
@@ -255,5 +258,14 @@ static std::vector<const char*> splash = {
     "You could not live with your own failure. And where did that bring you? Back to me.",
     "\"You wanna tell me about her?\" \"No. No, I don't think I will.\"",
     "People, they need to believe. And nowadays – they'll believe anything.",
-    "What the fu–?!"
+    "What the fu–?!",
+    "/dev/null only showed me the truth. Everything I lost can be mine again.",
+    "You break the rules and become a hero. I do it and I become the enemy. That doesn't seem fair.",
+    "I don't need another speech by some impotent whackjob whose motherboard didn't love him rationalising why he needs to conquer the Linux community.",
+    "DAMN IT, MANTIS! WHY DON'T YOU EVER THINK?!",
+    "All right, P13! You win the crying contest. Now back in the cage!",
+    "I told you a million times, you keep your grimy raccoon hands off my Zune!",
+    "That is a stupid design. And your instructions were very unclear.",
+    "Screw you, you stretch faced, RoboCop-looking, Skeletor wannabe, PURPLE NURPLE, PIECE OF— he hung up.",
+    "There are 206 bones in the human body. 207 if I'm watching \"Gossip Girl\"."
 };
