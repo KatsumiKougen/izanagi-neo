@@ -1,35 +1,29 @@
 # Basic controls
-|Key|*izanagi-neo*|*izanagi-neo* high-res|
-|:-:|:-|:-|
-|[Arrow keys](https://en.wikipedia.org/wiki/Arrow_keys)<br>or<br> [`WASD` keys](https://en.wikipedia.org/wiki/Arrow_keys#WASD_keys)|Move the cursor|The same|
-|[Space bar](https://en.wikipedia.org/wiki/Space_bar)<br>or<br>[`ENTER` key](https://en.wikipedia.org/wiki/Enter_key)|Plot the pixel|The same, only this time,<br>*if pressed when the cursor<br>is on a plotted pixel, it un-<br>plot the pixel.*|
-|[`F3`](https://en.wikipedia.org/wiki/Function_key)|~~Rage quit~~<br>Exit the program|The same|
 
-[**KM**](https://ultra.fandom.com/wiki/Kengo_Manaka): I have a question... why WASD keys? That's for computer games, not a rudimentary C++ art prog—<br>[**Me**](https://github.com/KatsumiKougen): ***Oh, shut up! You people don't understand art!***
+| Key                  | *izanagi-neo*                         | *izanagi-neo* high-res                             |
+|:--------------------:|:------------------------------------- |:-------------------------------------------------- |
+| Arrow keys or WASD   | Move the cursor                       | The same                                           |
+| Space bar or `ENTER` | Plot the pixel                        | Hit once, plot a pixel. Hit twice, unplot a pixel. |
+| `F3`                 | ~~Rage quit~~ I mean exit the program | The same                                           |
 
 # Not so basic controls
-|Key|*izanagi-neo*|*izanagi-neo* high-res|
-|:-:|:-|:-|
-|Number keys<br>`1` -> `8`|Select a colour<br>|The same|
-|`SHIFT`<br>+<br>Number keys<br>`1` -> `8`|Select a "light palette" colour|<div style="font-size:2em;">**Nothing**</div>|
-|`9`|Fill a selected area|The same|
-|`SHIFT`+`9`|<div style="font-size:2em;">**Nothing**</div>|Un-fill a selected area|
-|[`0`](https://ultra.fandom.com/wiki/Ultraman_Zero)|Fill the whole canvas with<br>current colour|Clear the whole canvas|
-|`[`<br>`]`|Set the starting and end point<br>of the fill area|The same|
-|`<`|<div style="font-size:2em;">**Nothing**</div>|Sets the foreground<br>colour to the current<br>colour|
-|`>`|**Nothing**<br>(Just like when you tried to impress<br>your girlfriend. Ha!)|Sets the background<br>colour to the current<br>colour|
 
-[**GG**](https://hololive.wiki/wiki/Gawr_Gura): Uh, it's "color", not "colour"... Are you a British?<br>[**Me**](https://github.com/KatsumiKougen): Bloody hell no!<br>**GG**: a...
+| Key                            | *izanagi-neo*                                                          | *izanagi-neo* high-res                           |
+|:------------------------------:|:---------------------------------------------------------------------- |:------------------------------------------------ |
+| Number keys `1` -> `8`         | Select a colour                                                        | The same                                         |
+| `SHIFT`+Number keys `1` -> `8` | Select a "light palette" colour                                        | **Nothing**                                      |
+| `9`                            | Fill a selected area                                                   | The same                                         |
+| `SHIFT`+`9`                    | **Nothing**                                                            | Un-fill a selected area                          |
+| `0`                            | Fill the whole canvas with the current colour                          | Clear the whole canvas                           |
+| `[` and `]`                    | Set the starting and end point of the fill area                        | The same                                         |
+| `<`                            | **Nothing**                                                            | Sets the foreground colour to the current colour |
+| `>`                            | **Nothing** (Just like when you tried to impress your girlfriend. Ha!) | Sets the background colour to the current colour |
 
 # File handling
-|Key|*izanagi-neo*|*izanagi-neo* high-res|
-|:-:|:-|:-|
-|`F1`|Save something ~~(like your secret stash<br>of [Ouro Kronii](https://hololive.wiki/wiki/Ouro_Kronii) lewd art)~~<br>And no, it has nothing to do with [Formula<br>One](https://en.wikipedia.org/wiki/Formula_One).|The same|
-|`F2`|Load something|The same|
-|[`FA`](https://en.wikipedia.org/wiki/Incel)|**Nothing**<br>(Also the answer to whether I have a girlfriend<br>or not. Poor me. 😭️)</div>**|**Nothing**<br>(I added this just for laughs and giggles.)</div>|
-|[`F-feralgan`<br>`500mg`](https://www.google.com/search?q=efferalgan+500mg)|Cures your headache|Also cures your headache|
-----
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Looks like Katsumi and [Engineer Man](https://github.com/engineer-man) are [blasting off](https://bulbapedia.bulbagarden.net/wiki/Team_Rocket_mottos#Blasting_off) again!
-
-----
+| Key                                                                      | *izanagi-neo*                                                                                                       | *izanagi-neo* high-res                                  |
+|:------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------- |:------------------------------------------------------- |
+| `F1`                                                                     | Save your current work. And no, it has nothing to do with [Formula One](https://en.wikipedia.org/wiki/Formula_One). | The same                                                |
+| `F2`                                                                     | Load something                                                                                                      | The same                                                |
+| [`FA`](https://en.wikipedia.org/wiki/Incel)                              | **Nothing** (Also the answer to whether I have a girlfriend or not. Poor me. 😭️)                                   | **Nothing** (I added this just for laughs and giggles.) |
+| [`F-feralgan` `500mg`](https://www.google.com/search?q=efferalgan+500mg) | Cure your headache                                                                                                  | Also cure your headache                                 |
